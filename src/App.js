@@ -1,8 +1,14 @@
+import Header from "./components/Header";
+import ListContainer from "./components/ListContainer";
+import "./style/common.scss";
 function App() {
   return (
-    <div>
-      <h1>hi</h1>
-    </div>
+    <>
+      <header>
+        <Header />
+      </header>
+      <ListContainer />
+    </>
   );
 }
 
