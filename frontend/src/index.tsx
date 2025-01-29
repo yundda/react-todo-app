@@ -3,8 +3,11 @@ import App from "./App";
 import { configureStore } from "@reduxjs/toolkit";
 import { rootReducer } from "./store";
 import { Provider } from "react-redux";
+import React from "react";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
 // configureStore로 store 만들기
 const store = configureStore({ reducer: rootReducer });
 // Provider로 감싸고 store props로 store 전달
