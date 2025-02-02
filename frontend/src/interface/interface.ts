@@ -4,12 +4,12 @@ export interface Payload {
   text: string;
   done: Boolean;
 }
-export interface Action {
-  type: string;
-  id?: number;
-  payload?: Payload;
-  data?: Payload;
-}
+// export interface Action {
+//   type: string;
+//   id?: number;
+//   payload?: Payload;
+//   data?: Payload;
+// }
 
 export interface State {
   list: Payload[];

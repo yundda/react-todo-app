@@ -7,6 +7,7 @@ router.get("/user", controller.getUser);
 
 // todo 전체 조회
 router.get("/todos", controller.getTodos);
+
 // todo 추가
 router.post("/todo", controller.addTodo);
 

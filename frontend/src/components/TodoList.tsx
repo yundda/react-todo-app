@@ -55,7 +55,7 @@ export default function TodoList() {
       dispatch(
         updateTodo({
           id: updateId,
-          text: inputRef.current.value,
+          text: inputRef.current.value as string,
           done: true,
         })
       );
@@ -68,6 +68,13 @@ export default function TodoList() {
       );
       inputRef.current.value = "";
       setUpdateId(null);
+    }
+  };
+  const cancelUpdate = () => {
+    setUpdateId(null);
+    if (inputRef.current) {
+      inputRef.current.value = "";
+      inputRef.current.focus();
     }
   };
   const toDone = async (id: number) => {
@@ -118,10 +125,13 @@ export default function TodoList() {
         <input type="text" ref={inputRef} onKeyDown={enterTodo} />
         <button onClick={() => createTodo()}>
           {updateId ? (
-            <FontAwesomeIcon
-              icon={faPen}
-              style={{ color: "#243d6e", fontSize: "1.2rem" }}
-            />
+            <>
+              <FontAwesomeIcon
+                icon={faPen}
+                style={{ color: "#243d6e", fontSize: "1.2rem" }}
+              />
+              <button onClick={cancelUpdate}>수정 취소</button>
+            </>
           ) : (
             <FontAwesomeIcon
               icon={faCircleUp}

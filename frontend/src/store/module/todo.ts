@@ -1,7 +1,7 @@
-import { Action, Payload, State } from "../../interface/interface";
+import { Payload, State } from "../../interface/interface";
 
 // 개별 state 관리 reducer 선언
-const initialState = {
+const initialState: State = {
   list: [],
   // nextID : count
 };
@@ -11,12 +11,12 @@ const initialState = {
 // initialState["nextID"] = count;
 
 // action type에 대한 상수 설정
-const CREATE = "todo/CREATE";
-const DONE = "todo/DONE";
-const INIT = "todo/INIT";
-const NOTDONE = "todo/NOTDONE";
-const DELETE = "todo/DELETE";
-const UPDATE = "todo/UPDATE";
+const CREATE = "todo/CREATE" as const;
+const DONE = "todo/DONE" as const;
+const INIT = "todo/INIT" as const;
+const NOTDONE = "todo/NOTDONE" as const;
+const DELETE = "todo/DELETE" as const;
+const UPDATE = "todo/UPDATE" as const;
 
 // components에서 사용될 action 반환 함수
 export const create = (payload: Payload) => {
@@ -45,6 +45,37 @@ export const updateTodo = (payload: Payload) => {
 export const init = (data: Payload[]) => {
   return { type: INIT, data };
 };
+
+interface Init {
+  type: typeof INIT;
+  data: Payload[];
+}
+
+interface Done {
+  type: typeof DONE;
+  id: number;
+}
+
+interface NotDone {
+  type: typeof NOTDONE;
+  id: number;
+}
+
+interface Create {
+  type: typeof CREATE;
+  payload: { id: number; text: string };
+}
+
+interface Delete {
+  type: typeof DELETE;
+  id: number;
+}
+interface Update {
+  type: typeof UPDATE;
+  payload: Payload;
+}
+
+type Action = Create | Done | Init | Delete | Update | NotDone;
 
 export const todoReducer = (state: State = initialState, action: Action) => {
   switch (action.type) {
@@ -111,7 +142,7 @@ export const todoReducer = (state: State = initialState, action: Action) => {
     case DELETE:
       return {
         ...state,
-        list: state.list.filter((todo) => {
+        list: state.list.filter((todo: Payload) => {
           return todo.id != action.id;
         }),
       };
@@ -119,7 +150,7 @@ export const todoReducer = (state: State = initialState, action: Action) => {
       console.log("update 요청", action.payload);
       return {
         ...state,
-        list: state.list.map((todo) => {
+        list: state.list.map((todo: Payload) => {
           if (todo.id == action.payload?.id) {
             return { ...todo, text: action.payload?.text };
           } else return todo;
